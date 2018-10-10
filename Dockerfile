@@ -10,7 +10,7 @@ RUN go get -v
 COPY . ./
 RUN make
 
-FROM whitekid/debian:curl
+FROM whitekid/debian:runtime
 
 WORKDIR /usr/app
-COPY --from=builder dockerhub-buildhook /usr/app/dockerhub-buildhook
+COPY --from=build /usr/app/bin/dockerhub-buildhook /usr/app/dockerhub-buildhook
