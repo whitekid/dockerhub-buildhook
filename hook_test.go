@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/whitekid/go-utils/fixtures"
 )
 
 func TestHook(t *testing.T) {
@@ -41,10 +42,24 @@ func TestHook(t *testing.T) {
 		}
 	  }`
 	data := strings.NewReader(hook)
-	r := setupRouter()
+
+	s := apiServer{}
+	r := s.setupRouter()
 	req, _ := http.NewRequest(http.MethodPost, "/webhook", data)
 	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestAuth(t *testing.T) {
+	defer fixtures.Env("AUTH_KEY", "fake").Teardown()
+
+	s := apiServer{}
+	r := s.setupRouter()
+	req, _ := http.NewRequest(http.MethodPost, "/webhook", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusUnauthorized, w.Code)
 }

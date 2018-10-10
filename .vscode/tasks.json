@@ -1,0 +1,36 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "make build",
+      "type": "shell",
+      "command": "make",
+      "args": ["build"],
+      "problemMatcher": ["$go"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "make docker",
+      "type": "shell",
+      "command": "make",
+      "args": ["docker"],
+      "problemMatcher": ["$go"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "git rebase --continue",
+      "type": "shell",
+      "command": "git",
+      "args": ["rebase", "--continue"],
+      "problemMatcher": []
+    }
+  ]
+}
