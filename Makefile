@@ -3,7 +3,7 @@ SRC=$(shell find . -type f -name '*.go' -not -path "./vendor/*" -not -path "*_te
 BUILD_FLAGS?=-v
 DOCKER_TAG?=dockerhub-buildhook
 
-.PHONY: clean test get tidy
+.PHONY: clean test dep tidy
 
 all: build
 build: $(TARGET)
@@ -18,8 +18,9 @@ test:
 	go test
 
 # update modules & tidy
-get:
-	go get -u
+dep:
+	@rm -f go.mod go.sum
+	@go mod init github.com/whitekid/dockerhub-buildhook
 	@$(MAKE) tidy
 
 tidy:

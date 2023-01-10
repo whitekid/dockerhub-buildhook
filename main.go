@@ -9,7 +9,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang/glog"
-	"github.com/whitekid/go-utils/request"
+	"github.com/whitekid/goxp/request"
 )
 
 type apiServer struct {
@@ -47,7 +47,7 @@ func (s *apiServer) handleHook(c *gin.Context) {
 			continue
 		}
 
-		resp, err := request.Post(value).Do()
+		resp, err := request.Post(value).Do(c.Request.Context())
 		if err != nil {
 			glog.Errorf("Fail to invoke build: %s, %s", value, err)
 			continue
@@ -77,7 +77,6 @@ func (s *apiServer) serve() error {
 
 	r := s.setupRouter()
 	return http.ListenAndServe("127.0.0.1:9997", r)
-
 }
 
 func main() {

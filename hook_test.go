@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/whitekid/go-utils/fixtures"
+	"github.com/whitekid/goxp/fixtures"
 )
 
 func TestHook(t *testing.T) {
@@ -53,7 +53,7 @@ func TestHook(t *testing.T) {
 }
 
 func TestAuth(t *testing.T) {
-	defer fixtures.Env("AUTH_KEY", "fake").Teardown()
+	defer fixtures.Env("AUTH_KEY", "fake")()
 
 	s := apiServer{}
 	r := s.setupRouter()
